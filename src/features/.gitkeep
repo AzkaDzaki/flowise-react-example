@@ -1,0 +1,10 @@
+# Features directory
+# Create feature folders here following the structure:
+# features/[feature-name]/
+#   ├── components/
+#   ├── hooks/
+#   ├── schemas/
+#   ├── services/
+#   ├── store/
+#   ├── types/
+#   └── index.ts
