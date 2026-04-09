@@ -30,6 +30,7 @@ export const DEFAULT_THEME: Partial<BubbleTheme> = {
   customCSS: '',
   chatWindow: {
     showTitle: true,
+    title: 'AgentLab',
     titleTextColor: '#444746',
     titleBackgroundColor: '#ffffff',
     welcomeMessage: 'Hi there! How can I help?',
@@ -39,6 +40,11 @@ export const DEFAULT_THEME: Partial<BubbleTheme> = {
     fontSize: 16,
     clearChatOnReload: false,
     renderHTML: false,
+    renderHtmlCode: false,
+    renderChart: false,
+    renderUrl: false,
+    renderMermaid: false,
+    renderUrlPrefixes: [],
     botMessage: {
       backgroundColor: '#ffffff',
       textColor: '#1f1f1f',

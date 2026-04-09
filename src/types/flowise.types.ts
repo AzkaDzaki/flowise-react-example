@@ -90,8 +90,8 @@ export interface ChatWindowTheme {
   errorMessage?: string
   backgroundColor?: string
   backgroundImage?: string
-  height?: number
-  width?: number
+  height?: number | string
+  width?: number | string
   fontSize?: number
   sourceDocsTitle?: string
   poweredByTextColor?: string
@@ -99,6 +99,11 @@ export interface ChatWindowTheme {
   starterPromptFontSize?: number
   clearChatOnReload?: boolean
   renderHTML?: boolean
+  renderHtmlCode?: boolean
+  renderChart?: boolean
+  renderUrl?: boolean
+  renderMermaid?: boolean
+  renderUrlPrefixes?: string[]
   userMessage?: MessageTheme
   botMessage?: MessageTheme
   textInput?: TextInputTheme

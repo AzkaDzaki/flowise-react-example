@@ -784,8 +784,8 @@ const ConfigForm = () => {
                 <StrField
                   label="Title"
                   path="theme.chatWindow.title"
-                  placeholder="Chat title"
-                  hint="The text displayed in the chat window title bar. E.g. 'Flowise Bot'."
+                  placeholder="AgentLab"
+                  hint="The text displayed in the chat window title bar. Default: 'AgentLab'."
                   get={get}
                   set={set}
                 />
@@ -866,17 +866,19 @@ const ConfigForm = () => {
                   get={get}
                   set={set}
                 />
-                <NumField
-                  label="Height (px)"
+                <StrField
+                  label="Height"
                   path="theme.chatWindow.height"
-                  hint="Chat window height in pixels. E.g. 700."
+                  placeholder="700 or calc(100% - 150px)"
+                  hint="Chat window height. Accepts a pixel number (e.g. 700) or a CSS string (e.g. 'calc(100% - 150px)')."
                   get={get}
                   set={set}
                 />
-                <NumField
-                  label="Width (px)"
+                <StrField
+                  label="Width"
                   path="theme.chatWindow.width"
-                  hint="Chat window width in pixels. E.g. 400."
+                  placeholder="400 or 100%"
+                  hint="Chat window width. Accepts a pixel number (e.g. 400) or a CSS string (e.g. '100%')."
                   get={get}
                   set={set}
                 />
@@ -923,7 +925,70 @@ const ConfigForm = () => {
                   get={get}
                   set={set}
                 />
+                <BoolField
+                  label="Render HTML Code"
+                  path="theme.chatWindow.renderHtmlCode"
+                  hint="Render HTML code blocks (e.g. <code>) from bot messages."
+                  get={get}
+                  set={set}
+                />
+                <BoolField
+                  label="Render Chart"
+                  path="theme.chatWindow.renderChart"
+                  hint="Render chart visualizations from bot messages."
+                  get={get}
+                  set={set}
+                />
+                <BoolField
+                  label="Render URL"
+                  path="theme.chatWindow.renderUrl"
+                  hint="Render URLs in bot messages as clickable links."
+                  get={get}
+                  set={set}
+                />
+                <BoolField
+                  label="Render Mermaid"
+                  path="theme.chatWindow.renderMermaid"
+                  hint="Render Mermaid diagrams from bot messages."
+                  get={get}
+                  set={set}
+                />
               </Section>
+
+              <div className="space-y-3">
+                <div className="flex items-center">
+                  <h4 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                    Render URL Prefixes
+                  </h4>
+                  <HintIcon text="Allowlist of URL prefixes that will be rendered as links when Render URL is enabled. One prefix per line." />
+                </div>
+                <div className="space-y-1">
+                  <Label className="text-xs text-muted-foreground">
+                    One prefix per line
+                  </Label>
+                  <textarea
+                    className={`${TEXTAREA_CLASS} min-h-[80px]`}
+                    value={(
+                      (get('theme.chatWindow.renderUrlPrefixes') as string[]) ??
+                      []
+                    ).join('\n')}
+                    onChange={(e) => {
+                      const prefixes = e.target.value
+                        .split('\n')
+                        .map((l: string) => l.trim())
+                        .filter(Boolean)
+                      set(
+                        'theme.chatWindow.renderUrlPrefixes',
+                        prefixes.length > 0 ? prefixes : undefined
+                      )
+                    }}
+                    placeholder={
+                      'https://example.com\nhttps://docs.example.com'
+                    }
+                    spellCheck={false}
+                  />
+                </div>
+              </div>
 
               <div className="space-y-3">
                 <div className="flex items-center">
