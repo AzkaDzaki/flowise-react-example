@@ -228,46 +228,39 @@ const BubbleChatPage = () => {
       </Card>
 
       {/* Bubble chat — only render when config is present */}
-      {chatflowid && apiHost && (
-        <BubbleChat
-          key={configKey}
-          chatflowid={chatflowid}
-          apiHost={apiHost}
-          {...(theme ? { theme } : {})}
-          {...(chatflowConfig ? { chatflowConfig } : {})}
-          {...(includeOnRequest
-            ? {
-                onRequest: async (request: RequestInit) => {
-                  console.log('onRequest', request)
-                },
-              }
-            : {})}
-          {...(includeObservers
-            ? {
-                observersConfig: {
-                  ...(observersFlags?.observeUserInput
-                    ? {
-                        observeUserInput: (v: unknown) =>
-                          console.log('observeUserInput', v),
-                      }
-                    : {}),
-                  ...(observersFlags?.observeMessages
-                    ? {
-                        observeMessages: (v: unknown) =>
-                          console.log('observeMessages', v),
-                      }
-                    : {}),
-                  ...(observersFlags?.observeLoading
-                    ? {
-                        observeLoading: (v: unknown) =>
-                          console.log('observeLoading', v),
-                      }
-                    : {}),
-                },
-              }
-            : {})}
-        />
-      )}
+      {chatflowid &&
+        apiHost &&
+        (() => {
+          const extraProps: Record<string, unknown> = {}
+          if (theme) extraProps.theme = theme
+          if (chatflowConfig) extraProps.chatflowConfig = chatflowConfig
+          if (includeOnRequest) {
+            extraProps.onRequest = async (request: RequestInit) => {
+              console.log('onRequest', request)
+            }
+          }
+          if (includeObservers) {
+            const obs: Record<string, unknown> = {}
+            if (observersFlags?.observeUserInput)
+              obs.observeUserInput = (v: unknown) =>
+                console.log('observeUserInput', v)
+            if (observersFlags?.observeMessages)
+              obs.observeMessages = (v: unknown) =>
+                console.log('observeMessages', v)
+            if (observersFlags?.observeLoading)
+              obs.observeLoading = (v: unknown) =>
+                console.log('observeLoading', v)
+            extraProps.observersConfig = obs
+          }
+          return (
+            <BubbleChat
+              key={configKey}
+              chatflowid={chatflowid}
+              apiHost={apiHost}
+              {...extraProps}
+            />
+          )
+        })()}
     </div>
   )
 }
