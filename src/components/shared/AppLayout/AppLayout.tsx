@@ -17,7 +17,11 @@ import ConfigForm from '@/components/shared/Config/ConfigForm'
 const navGroups = [
   {
     label: 'Get Started',
-    items: [{ to: '/', label: 'Installation' }],
+    items: [
+      { to: '/', label: 'Introduction' },
+      { to: '/installation', label: 'Installation' },
+      { to: '/example', label: 'Example' },
+    ],
   },
   {
     label: 'Playground',
